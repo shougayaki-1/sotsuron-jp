@@ -1,0 +1,97 @@
+:root {
+    --primary-bg: #0b2366;
+    --text-color: #e0e0e0;
+    --header-color: #ffffff;
+    --accent-red: #d90429;
+    --accent-yellow: #ffcf38;
+    --card-bg: #1a3275;
+    --border-color: #2a4a9a;
+    --font-family: 'Noto Sans JP', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-family); background-color: var(--primary-bg); color: var(--text-color); line-height: 1.7; }
+
+.is-hidden { display: none !important; }
+
+/* --- ローダー --- */
+.loader-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(11, 35, 102, 0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; transition: opacity 0.3s ease; }
+.loader-spinner { border: 4px solid rgba(255, 255, 255, 0.2); border-left-color: var(--accent-yellow); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 20px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- 全体レイアウト --- */
+.site-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+.site-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--border-color); padding-bottom: 20px; }
+.site-header h1 { font-size: 2.5rem; color: var(--header-color); font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+.site-header p { font-size: 1.1rem; color: var(--accent-yellow); font-style: italic; }
+
+/* --- ★ 操作パネル --- */
+.controls-panel { display: flex; flex-wrap: wrap; gap: 20px; background-color: var(--card-bg); padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border-color); align-items: center; }
+.control-group { display: flex; align-items: center; gap: 10px; }
+.control-group label { font-weight: 700; }
+.control-group select { font-family: var(--font-family); padding: 8px 12px; background-color: #fff; color: #333; border: 1px solid var(--border-color); border-radius: 4px; font-size: 1rem; }
+
+/* ★ モード切替 */
+.view-toggle { display: flex; background-color: var(--primary-bg); border-radius: 4px; overflow: hidden; }
+.toggle-btn { background: transparent; color: var(--text-color); border: none; padding: 8px 16px; cursor: pointer; font-size: 1rem; transition: background-color 0.2s; }
+.toggle-btn.active { background-color: var(--accent-red); color: white; font-weight: bold; }
+
+/* --- ★ 絞り込みフィルター --- */
+.filter-container { background-color: var(--card-bg); padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border-color); }
+.filter-group { margin-bottom: 10px; }
+.filter-group h4 { color: var(--accent-yellow); margin-bottom: 8px; }
+.filter-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter-tag { background-color: var(--primary-bg); border: 1px solid var(--border-color); color: var(--text-color); padding: 5px 12px; border-radius: 15px; font-size: 0.9rem; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; }
+.filter-tag:hover { background-color: var(--border-color); }
+.filter-tag.active { background-color: var(--accent-yellow); color: var(--primary-bg); font-weight: bold; border-color: var(--accent-yellow); }
+.reset-btn { background-color: var(--accent-red); color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; margin-top: 10px; }
+
+/* --- カレンダー --- */
+.calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.calendar-nav h2 { font-size: 1.8rem; color: var(--header-color); }
+.calendar-nav button { background-color: var(--accent-red); color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-size: 1rem; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; background-color: var(--card-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); }
+.calendar-day-header, .calendar-day { padding: 10px; text-align: center; border-radius: 4px; }
+.calendar-day-header { font-weight: 700; color: var(--accent-yellow); }
+.calendar-day { position: relative; background-color: var(--primary-bg); min-height: 80px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #aaa; }
+.calendar-day.current-month { color: var(--text-color); cursor: pointer; transition: background-color 0.2s; }
+.calendar-day.current-month:hover { background-color: var(--border-color); }
+.calendar-day.has-diary { background-color: #2a4a9a; border: 2px solid var(--accent-yellow); font-weight: bold; color: #fff; }
+.diary-count-badge { position: absolute; top: 5px; right: 5px; background-color: var(--accent-red); color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 0.8rem; line-height: 22px; text-align: center; font-weight: bold; }
+
+/* --- 日記表示 --- */
+.diary-display-container { margin-top: 20px; background-color: var(--card-bg); padding: 30px; border-radius: 8px; min-height: 200px; border: 1px solid var(--border-color); }
+.diary-prompt { text-align: center; padding: 50px 0; color: #a0a0a0; }
+.magnifying-glass { width: 60px; height: 60px; border: 5px solid #a0a0a0; border-radius: 50%; position: relative; margin: 0 auto 20px; }
+.magnifying-glass::after { content: ''; position: absolute; bottom: -25px; right: -15px; width: 30px; height: 5px; background: #a0a0a0; transform: rotate(45deg); }
+#diary-entries-area { display: flex; flex-direction: column; gap: 30px; }
+
+/* --- ★ 記事一覧 (Feed) --- */
+#feed-view { display: flex; flex-direction: column; gap: 20px; }
+.feed-card { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; transition: transform 0.2s, box-shadow 0.2s; }
+.feed-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.empty-message { text-align: center; padding: 50px; font-size: 1.2rem; color: #a0a0a0; }
+
+/* --- 共通日記コンポーネント --- */
+.diary-entry-block { background-color: var(--primary-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 20px; }
+.diary-entry-block h2 { font-size: 1.8rem; color: var(--accent-yellow); margin-bottom: 5px; }
+.diary-entry-block h3 { font-size: 1.2rem; margin-bottom: 20px; color: #ccc; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+.diary-meta { background-color: var(--card-bg); border: 1px solid var(--border-color); padding: 15px; border-radius: 4px; margin-bottom: 20px; }
+.diary-meta h4 { font-size: 1rem; color: var(--accent-yellow); margin-bottom: 5px; }
+.diary-meta p { font-size: 0.9rem; margin-bottom: 15px; }
+.character-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+.character-tag { background-color: var(--border-color); padding: 4px 10px; border-radius: 15px; font-size: 0.8rem; }
+.diary-meta a { display: inline-block; color: var(--accent-yellow); text-decoration: underline; font-weight: bold; }
+.diary-text-content { white-space: pre-wrap; font-size: 1.1rem; }
+
+/* --- ★ Markdownスタイル --- */
+.diary-text-content h1, .diary-text-content h2, .diary-text-content h3 { color: var(--header-color); margin-top: 1.5em; margin-bottom: 0.5em; border-bottom: 1px solid var(--border-color); padding-bottom: 5px;}
+.diary-text-content p { margin-bottom: 1em; }
+.diary-text-content ul, .diary-text-content ol { margin-left: 20px; margin-bottom: 1em; }
+.diary-text-content blockquote { border-left: 4px solid var(--border-color); padding-left: 15px; margin: 1em 0; color: #bbb; }
+.diary-text-content code { background-color: var(--primary-bg); padding: 2px 5px; border-radius: 4px; font-family: monospace; }
+.diary-text-content strong { font-weight: bold; color: var(--accent-yellow); }
+
+@media (max-width: 768px) {
+    .controls-panel { flex-direction: column; align-items: stretch; }
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>江戸川コナンの日記</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="loader" class="loader-overlay">
+        <div class="loader-spinner"></div>
+        <p>データを読み込み中...</p>
+    </div>
+
+    <div class="site-container">
+        <header class="site-header">
+            <h1>江戸川コナンの日記</h1>
+            <p>There is only one truth!</p>
+        </header>
+
+        <main class="main-content">
+            <!-- --- 操作パネル --- -->
+            <div class="controls-panel">
+                <div class="control-group">
+                    <label for="world-select">タイムライン:</label>
+                    <select id="world-select">
+                        <option value="0" selected>全結合版</option>
+                        <option value="1">パラレルワールド_1</option>
+                        <option value="2">パラレルワールド_2</option>
+                        <option value="3">パラレルワールド_3</option>
+                        <option value="4">パラレルワールド_4</option>
+                        <option value="5">パラレルワールド_5</option>
+                        <option value="6">パラレルワールド_6</option>
+                        <option value="7">パラレルワールド_7</option>
+                        <option value="8">パラレルワールド_8</option>
+                        <option value="9">パラレルワールド_9</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>表示モード:</label>
+                    <div class="view-toggle">
+                        <button id="calendar-mode-btn" class="toggle-btn active" data-view="calendar">カレンダー</button>
+                        <button id="feed-mode-btn" class="toggle-btn" data-view="feed">記事一覧</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- --- 絞り込みフィルター --- -->
+            <div id="filter-container" class="filter-container">
+                <div class="filter-group">
+                    <h4>主要登場人物:</h4>
+                    <div id="characters-filter" class="filter-options"></div>
+                </div>
+                <div class="filter-group">
+                    <h4>事件種別:</h4>
+                    <div id="event-type-filter" class="filter-options"></div>
+                </div>
+                <div class="filter-group">
+                    <h4>コナン一行の目的:</h4>
+                    <div id="purpose-filter" class="filter-options"></div>
+                </div>
+                <button id="reset-filter-btn" class="reset-btn is-hidden">フィルターをリセット</button>
+            </div>
+
+
+            <!-- --- カレンダー表示エリア --- -->
+            <div id="calendar-view">
+                <div class="calendar-nav">
+                    <button id="prev-month">＜</button>
+                    <h2 id="calendar-title">2023年 1月</h2>
+                    <button id="next-month">＞</button>
+                </div>
+                <div class="calendar-grid" id="calendar">
+                    <!-- カレンダーはJSで生成されます -->
+                </div>
+                <section id="calendar-diary-display" class="diary-display-container">
+                    <div id="diary-initial-prompt" class="diary-prompt">
+                        <div class="magnifying-glass"></div>
+                        <p>気になる日付をクリックして、日記を読んでみよう。</p>
+                    </div>
+                    <div id="diary-entries-area">
+                        <!-- 複数の日記がここにJSで挿入されます -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- --- 記事一覧表示エリア --- -->
+            <div id="feed-view" class="is-hidden">
+                <p id="feed-empty-message" class="empty-message is-hidden">条件に一致する日記はありませんでした。</p>
+                <!-- 記事一覧カードがここにJSで挿入されます -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Markdownパーサー -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
