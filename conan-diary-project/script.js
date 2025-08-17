@@ -1,4 +1,3 @@
-javascript
 document.addEventListener('DOMContentLoaded', () => {
     // --- DOM要素 ---
     const worldSelect = document.getElementById('world-select');
@@ -18,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetFilterBtn = document.getElementById('reset-filter-btn');
 
     // --- 状態管理 ---
-    let currentWorld = 0;
+    let currentWorld = 1;
     let worldDataCache = {};
     let fullDiaryData = []; // フィルタリング前の元データ
     let filteredDiaryData = []; // フィルタリング後のデータ

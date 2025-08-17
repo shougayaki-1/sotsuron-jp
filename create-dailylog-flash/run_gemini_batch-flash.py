@@ -1,16 +1,21 @@
 import os
+import sys
 import time
 import pandas as pd
 import google.generativeai as genai
 from tqdm import tqdm
+
+# プロジェクトルートのパスを追加して環境変数モジュールをインポート
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(project_root)
+from env_loader import get_gemini_api_key, load_environment
 
 # --- スクリプト自身の場所を基準にファイルのパスを自動設定 ---
 # このスクリプトファイルが存在するディレクトリの絶対パスを取得
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # --- 設定項目 ---
-# 1. あなたのAPIキーを設定してください
-API_KEY = "AIzaSyCjRWV08l2uaxMQrQ9YTWIFy6PQxoPh2J0" # 環境変数から読み込むことを推奨
+# 1. APIキーは環境変数から自動読み込み
 
 # 2. ファイル名を設定 (スクリプトと同じフォルダにあることを前提とする)
 INPUT_CSV_FILE = os.path.join(script_dir, 'prompts.csv')
@@ -25,14 +30,16 @@ DELAY_SECONDS = 60 / REQUESTS_PER_MINUTE
 
 def configure_api():
     """APIキーを設定します。"""
-    if API_KEY == 'YOUR_API_KEY':
-        print("エラー: APIキーが設定されていません。スクリプトを編集するか、環境変数を設定してください。")
-        exit()
     try:
-        genai.configure(api_key=API_KEY)
+        # 環境変数を読み込み
+        load_environment()
+        # APIキーを取得
+        api_key = get_gemini_api_key()
+        genai.configure(api_key=api_key)
         print("Gemini APIキーの設定が完了しました。")
     except Exception as e:
         print(f"APIキーの設定中にエラーが発生しました: {e}")
+        print("環境変数ファイル(.env)にGEMINI_API_KEYが正しく設定されているか確認してください。")
         exit()
 
 def process_prompts():
